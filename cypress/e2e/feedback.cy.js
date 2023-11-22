@@ -74,7 +74,7 @@ it('feedback test with cy.request and URL option only', () => {
 })
 
 
-it.only('feedback test with eval method', () => {
+it('feedback test with eval method', () => {
 
     cy.visit('/');
 

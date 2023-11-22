@@ -29,7 +29,7 @@ describe('Order tests ', () => {
 
         cy.log('Add new adress');
 
-        cy.get('button[aria-label="Add a new address"]', { timeout: 5000 }).click({ force: true });
+        cy.get('[routerlink="/address/create"]', { timeout: 5000 }).click({ force: true });
         cy.get('input[placeholder="Please provide a country."]').type('USA', { force: true });
         cy.get('input[placeholder="Please provide a name."]').type('Vlad', { force: true });
         cy.get('input[placeholder="Please provide a mobile number."]').type('1234567', { force: true });
