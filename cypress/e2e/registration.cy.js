@@ -13,7 +13,7 @@ user.email = faker.internet.email({ provider: 'ukr.com' });
 
 
 describe('Registration tests', () => {
-    it('Registration with valid data', () => {
+    it.only('Registration with valid data', () => {
 
         cy.log('Navigate to home/landing page');
         homePage.visit();
@@ -40,11 +40,8 @@ describe('Registration tests', () => {
         user.email = faker.word.words(1);
        
         registerNotFull(user);
-        errorPage.getEmailErrorMessage().should('contain', "Email address is not valid.");
-   
-        
-
-    
+        errorPage.getEmailErrorMessage().should('contain', "Email address is not valid."); 
+          
     })
     
     

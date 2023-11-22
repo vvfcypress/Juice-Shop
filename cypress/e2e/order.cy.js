@@ -3,12 +3,14 @@
 import user from '../fixtures/user.json';
 import { register } from '../support/helpers/helperRegister';
 import { login } from '../support/helpers/helper';
+import { faker } from '@faker-js/faker';
+user.email = faker.internet.email({ provider: 'ukr.com' });
+
 
 
 describe('Order tests ', () => {
 
     it('Order test', () => {
-
 
         register(user);
         login(user);
@@ -18,7 +20,7 @@ describe('Order tests ', () => {
         cy.get('.mat-icon.notranslate.mat-ripple').eq(1).click({ force: true });
         cy.get('#mat-input-0').type('Apple Pomace{enter}', { force: true });
         cy.get('#searchValue', { timeout: 5000 }).should('contain', 'Apple Pomace');
-        cy.get('button[aria-label="Add to Basket"]', { timeout: 15000 }).click({ force: true });
+        cy.get('button[aria-label="Add to Basket"]', { timeout: 5000 }).click({ force: true });
 
         cy.log('Open basket');
 
@@ -41,28 +43,26 @@ describe('Order tests ', () => {
 
         cy.get('input[type="radio"]', { timeout: 15000 }).eq(0).click({ force: true });
         cy.get('button[aria-label="Proceed to payment selection"]', { timeout: 5000 })
-            .click({ force: true }); //В этом блоке  чекбокс с адрессом выбирается и кнопка Continue кликается, но не срабатывает. 
-        //Адресс не выбирается.  В обработчике выдает 400 ошибку./api/adresses/undefined
+            .click({ force: true });
 
-        cy.log('Choose a delivery speed');// в этом блоке уже адресс не выбран и кнопка  Continue is disabled
+        cy.log('Choose a delivery speed');
 
-        cy.get('input[type="radio"]', { timeout: 15000 }).eq(0).click({ force: true });
+        cy.contains('mat-row', ' Fast Delivery').find('[class="mat-radio-container"]').click();
         cy.get('button[aria-label="Proceed to delivery method selection"]').click({ force: true });
 
-        // Дальше соответственно код уже не работает.
+        cy.log(' Open My Payment Options');
 
-        // cy.log(' Open My Payment Options');
-        // cy.get('.mat-expansion-panel-header-description.ng-tns-c150-48',{ timeout: 5000 }).type('1234567', { force: true });
-
-
-
-
-
-
-
-
+        cy.get('span[style="transform: rotate(0deg);"]').eq(0).click({ force: true });
+        cy.get('input[type="text"]').eq(1).type('vlad', { force: true });
+        cy.get('input[type="number"]').type('1234567890123456');
+        cy.get('select[matnativecontrol]').eq(0).select('1');
+        cy.get('select[matnativecontrol]').eq(1).select('2090');
+        cy.get('#submitButton').click();
+        cy.get('input[type="radio"]').eq(0).click({ force: true });
+        cy.contains('Continue').click({ force: true });
+        cy.contains('Place your order and pay').click({ force: true });
+        cy.get('.confirmation').eq(0).should('contain', 'Thank you for your purchase!');
 
     })
-
 
 })

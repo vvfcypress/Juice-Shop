@@ -15,5 +15,5 @@ export function registerNotFull(user) {
     cy.get('[aria-label="Selection list for the security question"]').click({ force: true });
     cy.get('#mat-option-4').click({ force: true });
     cy.get('#securityAnswerControl').type(user.answer, { force: true });
-    //cy.get('button[id="registerButton"]').click({ force: true });
+   
 }

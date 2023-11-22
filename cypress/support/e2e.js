@@ -18,6 +18,7 @@ import './commands';
 import './helpers/helper';
 import './helpers/helperRegister';
 import './helpers/helperNotFullRegister';
+import './helpers/searchHelper';
 
 
 // Alternatively you can use CommonJS syntax:
